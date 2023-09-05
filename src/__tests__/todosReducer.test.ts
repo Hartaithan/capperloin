@@ -24,6 +24,11 @@ describe("todos reducer", () => {
     ]);
   });
 
+  it("should not add empty todo", () => {
+    store.dispatch(addTodo(""));
+    expect(selectTodos(store.getState())).toEqual([]);
+  });
+
   it("should toggle a todo", () => {
     store.dispatch(addTodo("Todo"));
     store.dispatch(toggleTodo(1));
