@@ -1,8 +1,14 @@
-import type { FC } from "react";
+import type { FC, FormEventHandler } from "react";
 import { styled } from "styled-components";
 import ArrowIcon from "../icons/ArrowIcon";
+import { useDispatch } from "../hooks/useStore";
+import { addTodo } from "../store/todos/actions";
 
-const Wrapper = styled.div`
+interface Form {
+  todo: { value: string };
+}
+
+const Wrapper = styled.form`
   display: flex;
   align-items: center;
   height: 50px;
@@ -30,10 +36,20 @@ const Input = styled.input`
 `;
 
 const TodoInput: FC = () => {
+  const dispatch = useDispatch();
+
+  const handleSubmit: FormEventHandler<HTMLFormElement> = (event) => {
+    event.preventDefault();
+    const target = event.target as HTMLFormElement & Form;
+    const todo = target.todo.value;
+    dispatch(addTodo(todo));
+    target.reset();
+  };
+
   return (
-    <Wrapper>
+    <Wrapper onSubmit={handleSubmit}>
       <ArrowIcon color="#d9d9d9" />
-      <Input placeholder="What needs to be done?" />
+      <Input placeholder="What needs to be done?" name="todo" autoFocus />
     </Wrapper>
   );
 };
