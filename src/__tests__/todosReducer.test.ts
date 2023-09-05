@@ -1,26 +1,16 @@
-import { configureStore } from "@reduxjs/toolkit";
-import todoReducer from "../store/todos/reducer";
 import {
   selectTodos,
   selectCompletedTodos,
   selectIncompleteTodos,
 } from "../store/todos/selectors";
 import { addTodo, toggleTodo, deleteTodo } from "../store/todos/actions";
-import type { RootState } from "../models/store";
+import { createStore } from "../store";
 
 describe("todos reducer", () => {
-  let store = configureStore<RootState>({
-    reducer: {
-      todos: todoReducer,
-    },
-  });
+  let store = createStore();
 
   beforeEach(() => {
-    store = configureStore({
-      reducer: {
-        todos: todoReducer,
-      },
-    });
+    store = createStore();
   });
 
   it("should handle initial state", () => {

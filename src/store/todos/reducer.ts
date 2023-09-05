@@ -1,13 +1,13 @@
 import { createSlice } from "@reduxjs/toolkit";
 import type { TodosState } from "../../models/todo";
 
-const initialState: TodosState = {
+export const initialTodos: TodosState = {
   list: [],
 };
 
 export const todoSlice = createSlice({
   name: "todos",
-  initialState,
+  initialState: initialTodos,
   reducers: {
     addTodo: (state, action) => {
       const length = state.list.length;
