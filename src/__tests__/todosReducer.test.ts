@@ -8,7 +8,7 @@ import {
 import { addTodo, toggleTodo, deleteTodo } from "../store/todos/actions";
 import type { RootState } from "../models/store";
 
-describe("todoSlice reducer", () => {
+describe("todos reducer", () => {
   let store = configureStore<RootState>({
     reducer: {
       todos: todoReducer,
@@ -16,7 +16,7 @@ describe("todoSlice reducer", () => {
   });
 
   beforeEach(() => {
-    store = configureStore<RootState>({
+    store = configureStore({
       reducer: {
         todos: todoReducer,
       },
@@ -27,25 +27,25 @@ describe("todoSlice reducer", () => {
     expect(selectTodos(store.getState())).toEqual([]);
   });
 
-  it("should handle addTodo", () => {
-    store.dispatch(addTodo({ id: 0, text: "Test todo", completed: false }));
+  it("should add a todo", () => {
+    store.dispatch(addTodo("Todo"));
     expect(selectTodos(store.getState())).toEqual([
-      { id: 0, text: "Test todo", completed: false },
+      { id: 1, content: "Todo", completed: false },
     ]);
   });
 
-  it("should handle toggleTodo", () => {
-    store.dispatch(addTodo({ id: 0, text: "Test todo", completed: false }));
-    store.dispatch(toggleTodo(0));
+  it("should toggle a todo", () => {
+    store.dispatch(addTodo("Todo"));
+    store.dispatch(toggleTodo(1));
     expect(selectCompletedTodos(store.getState())).toEqual([
-      { id: 0, text: "Test todo", completed: true },
+      { id: 1, content: "Todo", completed: true },
     ]);
     expect(selectIncompleteTodos(store.getState())).toEqual([]);
   });
 
-  it("should handle deleteTodo", () => {
-    store.dispatch(addTodo({ id: 0, text: "Test todo", completed: false }));
-    store.dispatch(deleteTodo(0));
+  it("should delete a todo", () => {
+    store.dispatch(addTodo("Todo"));
+    store.dispatch(deleteTodo(1));
     expect(selectTodos(store.getState())).toEqual([]);
   });
 });

@@ -2,11 +2,7 @@ import { createSlice } from "@reduxjs/toolkit";
 import type { TodosState } from "../../models/todo";
 
 const initialState: TodosState = {
-  list: [
-    { id: 1, content: "Тестовое задание", completed: false },
-    { id: 2, content: "Прекрасный код", completed: true },
-    { id: 3, content: "Покрытие тестами", completed: false },
-  ],
+  list: [],
 };
 
 export const todoSlice = createSlice({
@@ -14,7 +10,9 @@ export const todoSlice = createSlice({
   initialState,
   reducers: {
     addTodo: (state, action) => {
-      state.list.push(action.payload);
+      const length = state.list.length;
+      const id = length > 0 ? state.list[length - 1].id + 1 : 1;
+      state.list.push({ id, content: action.payload, completed: false });
     },
     toggleTodo: (state, action) => {
       const todo = state.list.find((todo) => todo.id === action.payload);
