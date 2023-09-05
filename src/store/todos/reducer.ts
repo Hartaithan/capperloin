@@ -2,7 +2,11 @@ import { createSlice } from "@reduxjs/toolkit";
 import type { TodosState } from "../../models/todo";
 
 const initialState: TodosState = {
-  list: [],
+  list: [
+    { id: 1, content: "Тестовое задание", completed: false },
+    { id: 2, content: "Прекрасный код", completed: true },
+    { id: 3, content: "Покрытие тестами", completed: false },
+  ],
 };
 
 export const todoSlice = createSlice({
