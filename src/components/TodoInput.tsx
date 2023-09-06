@@ -21,17 +21,20 @@ const Input = styled.input`
   outline: none;
   border: none;
   width: 100%;
-  font-style: italic;
   font-size: 1rem;
+  font-family: inherit;
   padding: 6px 12px;
   &::-webkit-input-placeholder {
     color: #d9d9d9;
+    font-style: italic;
   }
   &:-moz-placeholder {
     color: #d9d9d9;
+    font-style: italic;
   }
   &::placeholder {
     color: #d9d9d9;
+    font-style: italic;
   }
 `;
 
