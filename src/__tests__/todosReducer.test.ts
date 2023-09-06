@@ -3,7 +3,12 @@ import {
   selectCompletedTodos,
   selectIncompleteTodos,
 } from "../store/todos/selectors";
-import { addTodo, toggleTodo, deleteTodo } from "../store/todos/actions";
+import {
+  addTodo,
+  toggleTodo,
+  deleteTodo,
+  clearCompletedTodos,
+} from "../store/todos/actions";
 import { createStore } from "../store";
 
 describe("todos reducer", () => {
@@ -65,5 +70,17 @@ describe("todos reducer", () => {
     store.dispatch(addTodo("Todo"));
     store.dispatch(deleteTodo(1));
     expect(selectTodos(store.getState())).toEqual([]);
+  });
+
+  it("should clear completed todos", () => {
+    store.dispatch(addTodo("Todo 1"));
+    store.dispatch(addTodo("Todo 2"));
+    store.dispatch(addTodo("Todo 3"));
+    store.dispatch(addTodo("Todo 4"));
+    store.dispatch(addTodo("Todo 5"));
+    store.dispatch(toggleTodo(1));
+    store.dispatch(toggleTodo(2));
+    store.dispatch(clearCompletedTodos());
+    expect(selectTodos(store.getState()).length).toEqual(3);
   });
 });
