@@ -15,3 +15,18 @@ export const selectCompletedTodos = createSelector(selectTodos, (todos) =>
 export const selectIncompleteTodos = createSelector(selectTodos, (todos) =>
   todos.filter((todo) => !todo.completed),
 );
+
+export const selectTotalCount = createSelector(
+  selectTodos,
+  (todos) => todos.length,
+);
+
+export const selectCompletedCount = createSelector(
+  selectCompletedTodos,
+  (todos) => todos.length,
+);
+
+export const selectIncompleteCount = createSelector(
+  selectIncompleteTodos,
+  (todos) => todos.length,
+);

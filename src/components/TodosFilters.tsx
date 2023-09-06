@@ -1,5 +1,7 @@
 import type { FC } from "react";
 import { styled } from "styled-components";
+import { useSelector } from "../hooks/useStore";
+import { selectIncompleteCount } from "../store/todos/selectors";
 
 const Container = styled.div`
   display: flex;
@@ -14,18 +16,26 @@ const Content = styled.div`
   gap: 12px;
 `;
 
-const Counter = styled.p``;
+const Counter = styled.p`
+  font-size: 12px;
+`;
 
 const Filter = styled.button`
+  font-size: 12px;
   border: none;
   outline: none;
   background: transparent;
 `;
 
 const TodosFilters: FC = () => {
+  const incomplete = useSelector(selectIncompleteCount);
+
   return (
     <Container>
-      <Counter>2 items left</Counter>
+      <Counter>
+        {incomplete === 0 && "You don't have tasks"}
+        {incomplete > 0 && `${incomplete} items left`}
+      </Counter>
       <Content>
         <Filter>All</Filter>
         <Filter>Active</Filter>
