@@ -29,6 +29,29 @@ describe("todos reducer", () => {
     expect(selectTodos(store.getState())).toEqual([]);
   });
 
+  it("should generate right ids - last item", () => {
+    store.dispatch(addTodo("Todo 1"));
+    store.dispatch(addTodo("Todo 2"));
+    store.dispatch(deleteTodo(2));
+    store.dispatch(addTodo("Todo 3"));
+    const todos = selectTodos(store.getState());
+    const lastIndex = todos.length - 1;
+    expect(todos[lastIndex].id).toEqual(2);
+    expect(todos[lastIndex].content).toEqual("Todo 3");
+  });
+
+  it("should generate right ids - middle item", () => {
+    store.dispatch(addTodo("Todo 1"));
+    store.dispatch(addTodo("Todo 2"));
+    store.dispatch(addTodo("Todo 3"));
+    store.dispatch(deleteTodo(2));
+    store.dispatch(addTodo("Todo 4"));
+    const todos = selectTodos(store.getState());
+    const lastIndex = todos.length - 1;
+    expect(todos[lastIndex].id).toEqual(4);
+    expect(todos[lastIndex].content).toEqual("Todo 4");
+  });
+
   it("should toggle a todo", () => {
     store.dispatch(addTodo("Todo"));
     store.dispatch(toggleTodo(1));
