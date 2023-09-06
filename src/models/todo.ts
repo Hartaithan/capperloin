@@ -1,3 +1,9 @@
+export enum FILTER {
+  All = "all",
+  Active = "active",
+  Completed = "completed",
+}
+
 export interface Todo {
   id: number;
   content: string;
@@ -6,4 +12,5 @@ export interface Todo {
 
 export interface TodosState {
   list: Todo[];
+  filter: FILTER;
 }

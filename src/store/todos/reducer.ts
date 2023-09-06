@@ -1,9 +1,10 @@
 import type { PayloadAction } from "@reduxjs/toolkit";
 import { createSlice } from "@reduxjs/toolkit";
-import type { TodosState } from "../../models/todo";
+import { FILTER, type TodosState } from "../../models/todo";
 
 export const initialTodos: TodosState = {
   list: [],
+  filter: FILTER.All,
 };
 
 export const todoSlice = createSlice({
@@ -27,6 +28,9 @@ export const todoSlice = createSlice({
     },
     clearCompletedTodos: (state) => {
       state.list = state.list.filter((todo) => todo.completed === false);
+    },
+    changeFilter: (state, action: PayloadAction<FILTER>) => {
+      state.filter = action.payload;
     },
   },
 });

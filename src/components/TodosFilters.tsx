@@ -1,11 +1,18 @@
 import type { FC } from "react";
 import { styled } from "styled-components";
-import { useSelector } from "../hooks/useStore";
-import { selectIncompleteCount } from "../store/todos/selectors";
+import { useDispatch, useSelector } from "../hooks/useStore";
+import { selectActiveCount, selectFilter } from "../store/todos/selectors";
+import { changeFilter, clearCompletedTodos } from "../store/todos/actions";
+import { FILTER } from "../models/todo";
+
+interface FilterProps {
+  $active?: boolean;
+}
 
 const Container = styled.div`
   display: flex;
-  padding: 8px 12px;
+  align-items: center;
+  padding: 6px 12px;
 `;
 
 const Content = styled.div`
@@ -20,28 +27,50 @@ const Counter = styled.p`
   font-size: 12px;
 `;
 
-const Filter = styled.button`
+const Filter = styled.button<FilterProps>`
   font-size: 12px;
-  border: none;
+  padding: 4px 6px;
+  border-radius: 4px;
+  border: ${({ $active }) =>
+    $active ? "1px solid #e9d9d8" : "1px solid transparent"};
   outline: none;
   background: transparent;
 `;
 
 const TodosFilters: FC = () => {
-  const incomplete = useSelector(selectIncompleteCount);
+  const dispatch = useDispatch();
+  const filter = useSelector(selectFilter);
+  const active = useSelector(selectActiveCount);
 
   return (
     <Container>
       <Counter>
-        {incomplete === 0 && "You don't have tasks"}
-        {incomplete > 0 && `${incomplete} items left`}
+        {active === 0 && "You don't have tasks"}
+        {active > 0 && `${active} items left`}
       </Counter>
       <Content>
-        <Filter>All</Filter>
-        <Filter>Active</Filter>
-        <Filter>Completed</Filter>
+        <Filter
+          $active={filter === FILTER.All}
+          onClick={() => dispatch(changeFilter(FILTER.All))}
+        >
+          All
+        </Filter>
+        <Filter
+          $active={filter === FILTER.Active}
+          onClick={() => dispatch(changeFilter(FILTER.Active))}
+        >
+          Active
+        </Filter>
+        <Filter
+          $active={filter === FILTER.Completed}
+          onClick={() => dispatch(changeFilter(FILTER.Completed))}
+        >
+          Completed
+        </Filter>
       </Content>
-      <Filter>Clear completed</Filter>
+      <Filter onClick={() => dispatch(clearCompletedTodos())}>
+        Clear completed
+      </Filter>
     </Container>
   );
 };

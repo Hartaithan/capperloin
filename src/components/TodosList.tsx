@@ -1,7 +1,7 @@
 import type { FC } from "react";
 import { styled } from "styled-components";
 import { useSelector } from "../hooks/useStore";
-import { selectTodos } from "../store/todos/selectors";
+import { selectFilteredTodos } from "../store/todos/selectors";
 import TodoItem from "./TodoItem";
 
 const Container = styled.div`
@@ -11,7 +11,7 @@ const Container = styled.div`
 `;
 
 const TodosList: FC = () => {
-  const todos = useSelector(selectTodos);
+  const todos = useSelector(selectFilteredTodos);
   return (
     <Container>
       {todos.map((todo, index) => {

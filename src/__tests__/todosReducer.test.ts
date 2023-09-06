@@ -1,15 +1,19 @@
 import {
   selectTodos,
   selectCompletedTodos,
-  selectIncompleteTodos,
+  selectActiveTodos,
+  selectFilter,
+  selectFilteredTodos,
 } from "../store/todos/selectors";
 import {
   addTodo,
   toggleTodo,
   deleteTodo,
   clearCompletedTodos,
+  changeFilter,
 } from "../store/todos/actions";
 import { createStore } from "../store";
+import { FILTER } from "../models/todo";
 
 describe("todos reducer", () => {
   let store = createStore();
@@ -63,7 +67,7 @@ describe("todos reducer", () => {
     expect(selectCompletedTodos(store.getState())).toEqual([
       { id: 1, content: "Todo", completed: true },
     ]);
-    expect(selectIncompleteTodos(store.getState())).toEqual([]);
+    expect(selectActiveTodos(store.getState())).toEqual([]);
   });
 
   it("should delete a todo", () => {
@@ -82,5 +86,30 @@ describe("todos reducer", () => {
     store.dispatch(toggleTodo(2));
     store.dispatch(clearCompletedTodos());
     expect(selectTodos(store.getState()).length).toEqual(3);
+  });
+
+  it("should handle initial filter", () => {
+    expect(selectFilter(store.getState())).toEqual(FILTER.All);
+  });
+
+  it("should change filter to active", () => {
+    store.dispatch(addTodo("Todo 1"));
+    store.dispatch(addTodo("Todo 2"));
+    store.dispatch(addTodo("Todo 3"));
+    store.dispatch(toggleTodo(1));
+    store.dispatch(changeFilter(FILTER.Active));
+    expect(selectFilter(store.getState())).toEqual(FILTER.Active);
+    expect(selectFilteredTodos(store.getState()).length).toEqual(2);
+  });
+
+  it("should change filter to completed", () => {
+    store.dispatch(addTodo("Todo 1"));
+    store.dispatch(addTodo("Todo 2"));
+    store.dispatch(addTodo("Todo 3"));
+    store.dispatch(toggleTodo(1));
+    store.dispatch(toggleTodo(2));
+    store.dispatch(changeFilter(FILTER.Completed));
+    expect(selectFilter(store.getState())).toEqual(FILTER.Completed);
+    expect(selectFilteredTodos(store.getState()).length).toEqual(2);
   });
 });
