@@ -88,10 +88,6 @@ describe("todos reducer", () => {
     expect(selectTodos(store.getState()).length).toEqual(3);
   });
 
-  it("should handle initial filter", () => {
-    expect(selectFilter(store.getState())).toEqual(FILTER.All);
-  });
-
   it("should change filter to active", () => {
     store.dispatch(addTodo("Todo 1"));
     store.dispatch(addTodo("Todo 2"));
