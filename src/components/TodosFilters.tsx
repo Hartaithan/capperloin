@@ -1,7 +1,7 @@
 import type { FC } from "react";
 import { styled } from "styled-components";
 import { useDispatch, useSelector } from "../hooks/useStore";
-import { selectActiveCount, selectFilter } from "../store/todos/selectors";
+import { selectFilter, selectFilteredCount } from "../store/todos/selectors";
 import { changeFilter, clearCompletedTodos } from "../store/todos/actions";
 import { FILTER } from "../models/todo";
 
@@ -40,13 +40,13 @@ const Filter = styled.button<FilterProps>`
 const TodosFilters: FC = () => {
   const dispatch = useDispatch();
   const filter = useSelector(selectFilter);
-  const active = useSelector(selectActiveCount);
+  const count = useSelector(selectFilteredCount);
 
   return (
     <Container>
       <Counter>
-        {active === 0 && "You don't have tasks"}
-        {active > 0 && `${active} items left`}
+        {count === 0 && "Empty"}
+        {count > 0 && `${count} items left`}
       </Counter>
       <Content>
         <Filter

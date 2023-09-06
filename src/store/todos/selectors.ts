@@ -50,3 +50,17 @@ export const selectFilteredTodos = createSelector(
     }
   },
 );
+
+export const selectFilteredCount = createSelector(
+  [selectFilter, selectTodos],
+  (filter, todos) => {
+    switch (filter) {
+      case FILTER.Active:
+        return todos.filter((todo) => !todo.completed).length;
+      case FILTER.Completed:
+        return todos.filter((todo) => todo.completed).length;
+      default:
+        return todos.length;
+    }
+  },
+);
