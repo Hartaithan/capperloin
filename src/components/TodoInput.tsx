@@ -3,6 +3,7 @@ import { styled } from "styled-components";
 import ArrowIcon from "../icons/ArrowIcon";
 import { useDispatch } from "../hooks/useStore";
 import { addTodo } from "../store/todos/actions";
+import { breakpoints } from "../utils/media-query";
 
 interface Form {
   todo: { value: string };
@@ -14,6 +15,9 @@ const Wrapper = styled.form`
   height: 50px;
   & > svg {
     margin-left: 12px;
+  }
+  @media ${breakpoints.md} {
+    height: 40px;
   }
 `;
 
@@ -35,6 +39,9 @@ const Input = styled.input`
   &::placeholder {
     color: #d9d9d9;
     font-style: italic;
+  }
+  @media ${breakpoints.md} {
+    font-size: 0.875rem;
   }
 `;
 

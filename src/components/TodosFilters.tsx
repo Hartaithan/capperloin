@@ -1,18 +1,32 @@
 import type { FC } from "react";
-import { styled } from "styled-components";
+import { css, styled } from "styled-components";
 import { useDispatch, useSelector } from "../hooks/useStore";
 import { selectFilter, selectFilteredCount } from "../store/todos/selectors";
 import { changeFilter, clearCompletedTodos } from "../store/todos/actions";
 import { FILTER } from "../models/todo";
+import { breakpoints } from "../utils/media-query";
 
 interface FilterProps {
   $active?: boolean;
 }
 
+const button = css`
+  font-size: 0.75rem;
+  padding: 4px 6px;
+  border-radius: 4px;
+  border: none;
+  outline: none;
+  background: transparent;
+`;
+
 const Container = styled.div`
   display: flex;
   align-items: center;
   padding: 6px 12px;
+  @media ${breakpoints.md} {
+    flex-wrap: wrap;
+    justify-content: space-between;
+  }
 `;
 
 const Content = styled.div`
@@ -21,20 +35,32 @@ const Content = styled.div`
   justify-content: center;
   align-items: center;
   gap: 12px;
+  @media ${breakpoints.md} {
+    order: 1;
+    width: 100%;
+    flex: unset;
+    margin-bottom: 6px;
+  }
 `;
 
 const Counter = styled.p`
-  font-size: 12px;
+  font-size: 0.75rem;
+  @media ${breakpoints.md} {
+    order: 2;
+  }
+`;
+
+const Clear = styled.button`
+  ${button}
+  @media ${breakpoints.md} {
+    order: 3;
+  }
 `;
 
 const Filter = styled.button<FilterProps>`
-  font-size: 12px;
-  padding: 4px 6px;
-  border-radius: 4px;
+  ${button}
   border: ${({ $active }) =>
     $active ? "1px solid #e9d9d8" : "1px solid transparent"};
-  outline: none;
-  background: transparent;
 `;
 
 const TodosFilters: FC = () => {
@@ -68,9 +94,9 @@ const TodosFilters: FC = () => {
           Completed
         </Filter>
       </Content>
-      <Filter onClick={() => dispatch(clearCompletedTodos())}>
+      <Clear onClick={() => dispatch(clearCompletedTodos())}>
         Clear completed
-      </Filter>
+      </Clear>
     </Container>
   );
 };

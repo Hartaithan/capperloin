@@ -3,6 +3,7 @@ import { styled } from "styled-components";
 import { useSelector } from "../hooks/useStore";
 import { selectFilteredTodos } from "../store/todos/selectors";
 import TodoItem from "./TodoItem";
+import { breakpoints } from "../utils/media-query";
 
 const Container = styled.div`
   width: 100%;
@@ -13,8 +14,11 @@ const Container = styled.div`
 const Empty = styled.p`
   width: 100%;
   text-align: center;
-  font-size: 14px;
+  font-size: 0.875rem;
   margin: 12px 0px;
+  @media ${breakpoints.md} {
+    font-size: 0.75rem;
+  }
 `;
 
 const TodosList: FC = () => {

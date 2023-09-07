@@ -14,8 +14,8 @@ const Container = styled.label<ContainerProps>`
   display: flex;
   align-items: center;
   justify-content: center;
-  width: ${({ $size }) => $size + "px"};
-  height: ${({ $size }) => $size + "px"};
+  min-width: ${({ $size }) => $size + "px"};
+  min-height: ${({ $size }) => $size + "px"};
   border: 1px solid #d9d9d9;
   border-radius: 50%;
 `;

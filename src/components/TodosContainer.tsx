@@ -3,6 +3,7 @@ import { css, styled } from "styled-components";
 import TodoInput from "./TodoInput";
 import TodosList from "./TodosList";
 import TodosFilters from "./TodosFilters";
+import { breakpoints } from "../utils/media-query";
 
 const shadow = css`
   box-shadow: 0px 3px 4px 0px rgba(0, 0, 0, 0.2);
@@ -37,6 +38,9 @@ const Container = styled.div`
     width: 96%;
     ${shadow}
     ${card}
+  }
+  @media ${breakpoints.md} {
+    width: 100%;
   }
 `;
 

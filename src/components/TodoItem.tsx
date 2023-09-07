@@ -4,6 +4,7 @@ import { styled } from "styled-components";
 import Checkbox from "./Checkbox";
 import { useDispatch } from "../hooks/useStore";
 import { toggleTodo } from "../store/todos/actions";
+import { breakpoints } from "../utils/media-query";
 
 interface TodoProps {
   todo: Todo;
@@ -21,6 +22,7 @@ interface ContentProps {
 const Container = styled.div<ContainerProps>`
   display: flex;
   padding: 12px;
+  align-items: center;
   border-bottom: ${({ $border }) => ($border ? "1px solid #F7F7F7" : "none")};
 `;
 
@@ -30,6 +32,10 @@ const Content = styled.p<ContentProps>`
   text-decoration: ${({ $completed }) =>
     $completed ? "line-through" : "unset"};
   color: ${({ $completed }) => ($completed ? "#d9d9d9" : "inherit")};
+  word-break: break-word;
+  @media ${breakpoints.md} {
+    font-size: 0.875rem;
+  }
 `;
 
 const TodoItem: FC<TodoProps> = (props) => {
