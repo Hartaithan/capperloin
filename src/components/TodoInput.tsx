@@ -5,11 +5,7 @@ import { useDispatch } from "../hooks/useStore";
 import { addTodo } from "../store/todos/actions";
 import { breakpoints } from "../utils/media-query";
 
-interface Form {
-  todo: { value: string };
-}
-
-const Wrapper = styled.form`
+const Form = styled.form`
   display: flex;
   align-items: center;
   height: 50px;
@@ -50,17 +46,22 @@ const TodoInput: FC = () => {
 
   const handleSubmit: FormEventHandler<HTMLFormElement> = (event) => {
     event.preventDefault();
-    const target = event.target as HTMLFormElement & Form;
-    const todo = target.todo.value;
-    dispatch(addTodo(todo));
+    const target = event.currentTarget;
+    const todo = target.elements.namedItem("todo") as HTMLInputElement;
+    dispatch(addTodo(todo.value));
     target.reset();
   };
 
   return (
-    <Wrapper onSubmit={handleSubmit}>
+    <Form onSubmit={handleSubmit} data-testid="todo-form">
       <ArrowIcon color="#d9d9d9" />
-      <Input placeholder="What needs to be done?" name="todo" autoFocus />
-    </Wrapper>
+      <Input
+        placeholder="What needs to be done?"
+        name="todo"
+        autoFocus
+        data-testid="todo-input"
+      />
+    </Form>
   );
 };
 
