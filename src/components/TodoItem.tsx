@@ -47,7 +47,7 @@ const TodoItem: FC<TodoProps> = (props) => {
   };
 
   return (
-    <Container $border={border}>
+    <Container $border={border} data-testid="todo-item">
       <Checkbox checked={todo.completed} onChange={handleChange} />
       <Content $completed={todo.completed}>{todo.content}</Content>
     </Container>

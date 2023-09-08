@@ -24,9 +24,11 @@ const Empty = styled.p`
 const TodosList: FC = () => {
   const todos = useSelector(selectFilteredTodos);
   return (
-    <Container>
+    <Container data-testid="todo-list">
       {todos.length === 0 && (
-        <Empty>List is empty. Let&apos;s add something!</Empty>
+        <Empty data-testid="todo-empty">
+          List is empty. Let&apos;s add something!
+        </Empty>
       )}
       {todos.map((todo, index) => {
         const isLast = todos.length === index + 1;
