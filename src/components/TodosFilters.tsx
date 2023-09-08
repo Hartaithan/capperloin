@@ -69,32 +69,38 @@ const TodosFilters: FC = () => {
   const count = useSelector(selectFilteredCount);
 
   return (
-    <Container>
-      <Counter>
+    <Container data-testid="todo-filters">
+      <Counter data-testid="todo-filter-counter">
         {count === 0 && "Empty"}
         {count > 0 && `${count} items left`}
       </Counter>
       <Content>
         <Filter
+          data-testid="todo-filter-all"
           $active={filter === FILTER.All}
           onClick={() => dispatch(changeFilter(FILTER.All))}
         >
           All
         </Filter>
         <Filter
+          data-testid="todo-filter-active"
           $active={filter === FILTER.Active}
           onClick={() => dispatch(changeFilter(FILTER.Active))}
         >
           Active
         </Filter>
         <Filter
+          data-testid="todo-filter-completed"
           $active={filter === FILTER.Completed}
           onClick={() => dispatch(changeFilter(FILTER.Completed))}
         >
           Completed
         </Filter>
       </Content>
-      <Clear onClick={() => dispatch(clearCompletedTodos())}>
+      <Clear
+        data-testid="todo-filter-clear"
+        onClick={() => dispatch(clearCompletedTodos())}
+      >
         Clear completed
       </Clear>
     </Container>
